@@ -1,0 +1,3 @@
+FROM brightspot/mysql:percona5
+EXPOSE 3306
+COPY ./data /docker-entrypoint-initdb.d

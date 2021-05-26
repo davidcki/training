@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: apache
+  template:
+    metadata:
+      labels:
+        component: apache
+    spec:
+      containers:
+        - name: apache
+          image: brightspot/apache:2-dims3
+          ports:
+            - containerPort: 80

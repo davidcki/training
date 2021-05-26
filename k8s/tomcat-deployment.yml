@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: tomcat
+  template:
+    metadata:
+      labels:
+        component: tomcat
+    spec:
+      containers:
+        - name: tomcat
+          image: davidcki/brightspot-test-tomcat
+          ports:
+            - containerPort: 5005
+          env:
+            - name: ROOT_WAR
+              value: /code/site/build/libs/training-site-1.0.0-SNAPSHOT.war
+            - name: CONTEXT_PROPERTIES
+              value: /code/docker-context.properties
+            - name: LOGGING_PROPERTIES
+              value: /code/docker-logging.properties
+            - name: SOLR_URL
+              value: http://solr:8080/solr/collection1

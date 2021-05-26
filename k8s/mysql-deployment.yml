@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: mysql
+  template:
+    metadata:
+      labels:
+        component: mysql
+    spec:
+      volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: mysql-data-persistent-volume-claim
+        - name: mysql-logs
+          persistentVolumeClaim:
+            claimName: mysql-logs-persistent-volume-claim
+      containers:
+        - name: mysql
+          image: davidcki/brightspot-test-mysql
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+            - name: mysql-logs
+              mountPath: /var/log/mysql

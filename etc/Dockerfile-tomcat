@@ -8,3 +8,4 @@ USER root
 RUN chown -R tomcat:tomcat /servers/tomcat/storage/
 USER tomcat
 VOLUME /servers/tomcat/storage
+EXPOSE 5005
